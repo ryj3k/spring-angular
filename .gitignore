@@ -8,10 +8,14 @@ target/
 .project
 .settings
 .springBeans
+<<<<<<< HEAD
 .mvn
 mvnw
 mvnw.cmd
 target
+=======
+
+>>>>>>> dbc745bf7a5e44d66aa90145d5a8a3c13139a871
 ### IntelliJ IDEA ###
 .idea
 *.iws
