@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.entity.Customer;
+import com.example.entity.User;
 
 
-public interface CustomerRepository extends JpaRepository<Customer, Long>{
+public interface CustomerRepository extends JpaRepository<User, Long>{
 	
-	Customer findByName(String firstName);
+	User findByName(String firstName);
 
-	List<Customer> findBySurname(String lastName);
+	List<User> findBySurname(String lastName);
 
 }

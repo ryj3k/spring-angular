@@ -17,7 +17,7 @@ public class CustomerRest {
 	@Autowired
 	private CustomerService customerService;	
 	
-	@RequestMapping("/customer/all")
+	@RequestMapping("/api/customer/all")
 	public List<CustomerDTO> getAll(){
 		return customerService.findAll();
 	}

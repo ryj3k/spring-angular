@@ -11,7 +11,7 @@ import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
 import com.example.dto.CustomerDTO;
-import com.example.entity.Customer;
+import com.example.entity.User;
 import com.example.repository.CustomerRepository;
 
 
@@ -31,28 +31,30 @@ public class CustomerService {
 	}
 
 	public List<CustomerDTO> findBySurname(String lastName){
-		List<Customer> list = customerRepository.findBySurname(lastName);
+		List<User> list = customerRepository.findBySurname(lastName);
 		return list.stream().map(customer -> convertToDto(customer)).collect(Collectors.toList());
 	}
 	
 	public List<CustomerDTO> findAll(){
-		List<Customer> list = customerRepository.findAll();
+		List<User> list = customerRepository.findAll();
 		return list.stream().map(customer -> convertToDto(customer)).collect(Collectors.toList());
 	}
 	
-	private CustomerDTO convertToDto(Customer customer) {
-		CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);	    
-	    return customerDTO;
+	private CustomerDTO convertToDto(User customer) {
+		if(customer == null){
+			return null;
+		}		    
+	    return modelMapper.map(customer, CustomerDTO.class);
 	}
 	
-	private Customer convertToEntity(CustomerDTO customerDTO) throws ParseException {
-		Customer customer = modelMapper.map(customerDTO, Customer.class);   
+	private User convertToEntity(CustomerDTO customerDTO) throws ParseException {
+		User customer = modelMapper.map(customerDTO, User.class);   
 	  
 	    if (customerDTO.getId() != null) {
-	    	Customer oldPost = customerRepository.findOne(customerDTO.getId());
+	    	User oldPost = customerRepository.findOne(customerDTO.getId());
 	       
 	    }
 	    return customer;
-	}
+	}	
 
 }
