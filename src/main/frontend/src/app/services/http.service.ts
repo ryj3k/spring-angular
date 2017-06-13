@@ -3,7 +3,7 @@ import { Request, XHRBackend, RequestOptions, Response, Http, RequestOptionsArgs
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { AuthResponse } from '../models/index';
-//import { AuthService } from './auth.service';
+// import { AuthService } from './auth.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 @Injectable()
@@ -22,34 +22,21 @@ export class ExtendedHttpService extends Http {
       if (!options) {
         options = { headers: new Headers() };
       }
-      this.setHeaders(options);
+      this.jwtHeaders(options);
     } else {
-      this.setHeaders(url);
+      this.jwtHeaders(url);
     }
-    //console.log("urllll: " + JSON.stringify(url) +", Options:" + options);
-
     return super.request(url, options).catch(this.catchErrors());
   }
-  private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
 
-    //  if (this.authService == null) {
-    //        this.authService = this.injector.get(AuthService);
-    //  }
-    //add whatever header that you need to every request
-    //in this example I could set the header token by using authService that I've created
-     //objectToSetHeadersTo.headers.set('token', this.authService.getToken());
-  }
-
-  private jwt() {
-      // create authorization header with jwt token
-      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+private jwtHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       if (currentUser && currentUser.token) {
-          let requestOptions = new RequestOptions();
-          let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-          requestOptions.headers = new Headers({ 'X-Authorization': 'Bearer ' + currentUser.token });
-          return requestOptions;
+         objectToSetHeadersTo.headers.set('X-Authorization', 'Bearer ' + currentUser.token );
       }
   }
+
+
   private catchErrors() {
       return (res: Response) => {
           if (this.router == null) {
@@ -57,14 +44,8 @@ export class ExtendedHttpService extends Http {
           }
           if (res.status === 401 || res.status === 403) {
               localStorage.removeItem('currentUser');
-              let failResponse :AuthResponse;
-              failResponse = new  AuthResponse().fromJSON(res.json());
-              console.log("errorCode", failResponse.errorCode);
-              console.log("Body", res.json());
-              console.log("Error_Token_Expired: redirecting to login.");
-
-
-              this.router.navigate(['/login']);
+              const failResponse = new  AuthResponse().fromJSON(res.json());
+              this.router.navigate(['/login', res.status]);
           }
           return Observable.throw(res);
       };

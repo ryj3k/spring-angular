@@ -5,4 +5,16 @@ import { Component } from '@angular/core';
     selector: 'app',
     templateUrl: 'app.component.html'
 })
-export class AppComponent {}
+export class AppComponent {
+isCollapsed = false;
+
+isLogged() {
+  return localStorage.currentUser != null;
+}
+showMenu() {
+  this.isCollapsed = !this.isCollapsed;
+}
+
+
+
+}

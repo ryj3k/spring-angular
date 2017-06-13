@@ -1,6 +1,4 @@
-//import { AlertModule } from 'ngx-bootstrap';
-
-
+// import { AlertModule } from 'ngx-bootstrap';
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
@@ -14,22 +12,24 @@ import { routing }        from './app.routing';
 
 import { AlertComponent } from './directives/index';
 import { AuthGuard } from './guards/index';
-import { AlertService, AuthenticationService, UserService, ExtendedHttpService } from './services/index';
+import { AlertService, AuthenticationService, UserService, ExtendedHttpService, WordsService } from './services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
+import { WordsComponent } from './words/words/words.component';
 
 @NgModule({
   declarations: [
      AppComponent,
      AlertComponent,
      HomeComponent,
-     LoginComponent
+     LoginComponent,
+     WordsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    //AlertModule.forRoot(),
+    // AlertModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -40,7 +40,8 @@ import { LoginComponent } from './login/index';
    AuthGuard,
    AlertService,
    AuthenticationService,
-   UserService
+   UserService,
+   WordsService
  ],
   bootstrap: [AppComponent]
 })

@@ -30,10 +30,12 @@ public class WordService {
 	
 	
 	public WordDTO saveOrUpdateWord(WordDTO dto){
-		return convertToDto(wordRepository.save(convertToEntity(dto)));
-		
+		return convertToDto(wordRepository.save(convertToEntity(dto)));		
 	}
 	
+	public List<WordDTO> getAll(){		
+		return wordRepository.findAll().stream().map(word -> convertToDto(word)).collect(Collectors.toList());
+	}
 	
 	
 	public WordDTO convertToDto(Word customer) {
@@ -54,6 +56,6 @@ public class WordService {
 	       
 	    }
 	    return word;
-	}	
+	}
 	
 }

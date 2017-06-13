@@ -1,8 +1,30 @@
-<div class="jumbotron">
+
     <div class="container">
-        <div class="col-sm-8 col-sm-offset-2">
+
+      <nav role="navigation" class="navbar navbar-inverse"  *ngIf="isLogged()">
+    		<div class="navbar-header">
+	            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+	                <span class="sr-only">Toggle navigation</span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	            </button>
+            	<a href="#" class="navbar-brand">Slowka</a>
+        	</div>
+
+        <div id="navbarCollapse" [ngClass]="{'collapse': true, 'navbar-collapse': true, 'in': isCollapsed}">
+    			<ul class="nav navbar-nav">
+    				<li><a>Start</a></li>
+             <li> <a [routerLink]="['/words']"> Baza słówek</a></li>
+    			</ul>
+    			<ul class="nav navbar-nav navbar-right">
+                <li><a href="#" [routerLink]="['/login', -100]">Wyloguj</a></li>
+          </ul>
+    		</div>
+      </nav>
+
+       <div>
             <alert></alert>
             <router-outlet></router-outlet>
         </div>
     </div>
-</div>

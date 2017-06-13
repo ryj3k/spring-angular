@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
- 
+
 import { AlertService, AuthenticationService } from '../services/index';
 
 @Component({
@@ -25,6 +25,14 @@ export class LoginComponent implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.route.params.subscribe(params => {
+          if (Number(params['status']) === 403 || Number(params['status']) === 401 ) {
+            this.alertService.error('Sesja wygasła', false);
+          }else if (Number(params['status']) === -100) {
+            this.authenticationService.logout();
+             this.alertService.success('Wylogowano', false);
+          }
+        });
     }
 
     login() {

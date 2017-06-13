@@ -1,5 +1,7 @@
 package com.example.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,11 @@ public class WordRest {
 	public ResponseEntity<WordDTO> saveWord(@RequestBody WordDTO dto){
 		WordDTO newDto = wordService.saveOrUpdateWord(dto);
 		return ResponseEntity.ok(newDto);
+	}
+	
+	@RequestMapping("api/word/all")
+	public ResponseEntity<List<WordDTO>> getAll(){	
+		return  ResponseEntity.ok(wordService.getAll());
 	}
 
 }

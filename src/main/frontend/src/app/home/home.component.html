@@ -5,8 +5,8 @@
     <ul>
         <li *ngFor="let user of users">
 
-            - <button (click)="deleteUser()">Delete</button>
+            - <button (click)="deleteUser()">Delete </button>
         </li>
     </ul>
-    <p><a [routerLink]="['/login']">Logout</a></p>
+    <p><a [routerLink]="['/login', 200]">Logout</a></p>
 </div>
