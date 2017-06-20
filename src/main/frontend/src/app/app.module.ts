@@ -1,3 +1,4 @@
+import { GuardService } from './guards/guard.service';
 // import { AlertModule } from 'ngx-bootstrap';
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -16,6 +17,7 @@ import { AlertService, AuthenticationService, UserService, ExtendedHttpService, 
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { WordsComponent } from './words/words/words.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { WordsComponent } from './words/words/words.component';
    AlertService,
    AuthenticationService,
    UserService,
-   WordsService
+   WordsService,
+   GuardService
  ],
   bootstrap: [AppComponent]
 })

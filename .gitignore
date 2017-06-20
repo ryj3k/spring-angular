@@ -221,6 +221,11 @@ typings/
 # dotenv environment variables file
 .env
 
+src/main/frontend/.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
 # End of https://www.gitignore.io/api/java,node,maven,angular,eclipse
 
