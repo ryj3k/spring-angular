@@ -1,3 +1,4 @@
+import { Word } from './../models/word';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 
@@ -9,5 +10,10 @@ export class WordsService {
   getAll() {
     return this.http.get('api/word/all').map((response: Response) => response.json());
   }
+
+  saveOrUpdate(word: Word) {
+    return this.http.put('api/word/save', word).map((response: Response) => response.json());
+  }
+
 
 }

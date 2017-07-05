@@ -43,7 +43,6 @@ public class WordServiceTest {
 	public void covetrToEntityTest(){
 		WordDTO dto = new WordDTO();
 		dto.setName("Imie");		
-		dto.setTranslations(new HashSet<String>(Arrays.asList("Name", "Name2")));
 		
 		Word entity = wordService.convertToEntity(dto);
 		assertNotNull(entity);

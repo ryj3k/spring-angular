@@ -17,7 +17,8 @@ import { AlertService, AuthenticationService, UserService, ExtendedHttpService, 
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { WordsComponent } from './words/words/words.component';
-
+import { ModalModule } from 'ngx-bootstrap';
+import { DynamicInputListComponent } from './dynamic-input-list/dynamic-input-list.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { WordsComponent } from './words/words/words.component';
      AlertComponent,
      HomeComponent,
      LoginComponent,
-     WordsComponent
+     WordsComponent,
+     DynamicInputListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { WordsComponent } from './words/words/words.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    ModalModule.forRoot()
   ],
   providers: [
   {provide: Http, useClass: ExtendedHttpService },

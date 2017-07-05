@@ -1,0 +1,20 @@
+<div class="controls" id="fields">
+  <form role="form" autocomplete="off">
+    <div class="entry input-group" *ngFor="let translation of translations;let i = index">
+      <input class="form-control" type="text" name="translation_{{i}}" [(ngModel)]="translations[i].value" #ctrl="ngModel" />
+      <span class="input-group-btn">
+               <button class="btn btn-danger" type="button" (click)="removeTranslation(translation)">
+               <span class="glyphicon glyphicon-minus"></span>
+      </button>
+      </span>
+    </div>
+     <div class="entry input-group">
+      <input class="form-control" type="text" name="newTranslation" [(ngModel)]="newTranslation"/>
+      <span class="input-group-btn" (click)="addTranslation()">
+               <button class="btn btn-success" type="button">
+               <span class="glyphicon glyphicon-plus" ></span>
+      </button>
+      </span>
+    </div>
+  </form>
+</div>

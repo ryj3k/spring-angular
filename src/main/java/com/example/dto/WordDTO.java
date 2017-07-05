@@ -1,14 +1,13 @@
 package com.example.dto;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import com.example.entity.Translation;
 
 public class WordDTO {
 	private Long id;
 	private String name;
-	private Set<String> translations;
+	private Set<Translation> translations;
 	
 	public Long getId() {
 		return id;
@@ -23,14 +22,10 @@ public class WordDTO {
 		this.name = name;
 	}
 	public Set<Translation> getTranslations() {
-		return translations.stream().map(t ->{
-			Translation tr = new Translation();
-			tr.setValue(t);
-			return tr;
-		}).collect(Collectors.toSet());
+		return translations;
 		
 	}
-	public void setTranslations(Set<String> translations) {
+	public void setTranslations(Set<Translation> translations) {
 		this.translations = translations;
 	}
 }

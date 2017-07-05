@@ -26,6 +26,6 @@ public class WordRest {
 	@RequestMapping("api/word/all")
 	public ResponseEntity<List<WordDTO>> getAll(){	
 		return  ResponseEntity.ok(wordService.getAll());
-	}
-
+	}	
+	
 }

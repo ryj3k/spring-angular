@@ -34,17 +34,15 @@ public class WordService {
 	}
 	
 	public List<WordDTO> getAll(){		
-		return wordRepository.findAll().stream().map(word -> convertToDto(word)).collect(Collectors.toList());
-	}
+		return wordRepository.getAllFull().stream().map(word -> convertToDto(word)).collect(Collectors.toList());
+	}	
 	
-	
-	public WordDTO convertToDto(Word customer) {
-		if(customer == null){
+	public WordDTO convertToDto(Word word) {
+		if(word == null){
 			return null;
 		}
-		WordDTO dto = modelMapper.map(customer, WordDTO.class);
-		List<String>list = customer.getTranslation().stream().map( t -> t.getValue()).collect(Collectors.toList());
-		dto.setTranslations(new HashSet<>(list));
+		WordDTO dto = modelMapper.map(word, WordDTO.class);		
+		dto.setTranslations(word.getTranslation());
 		return dto;
 	}
 	
@@ -52,7 +50,7 @@ public class WordService {
 		Word word = modelMapper.map(customerDTO, Word.class);   
 		word.setTranslation(customerDTO.getTranslations());
 	    if (customerDTO.getId() != null) {
-	    	Word oldWord = wordRepository.findOne(customerDTO.getId());
+	    	Word oldWord = wordRepository.getFull(customerDTO.getId());
 	       
 	    }
 	    return word;
