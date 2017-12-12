@@ -19,6 +19,7 @@ import { LoginComponent } from './login/index';
 import { WordsComponent } from './words/words/words.component';
 import { ModalModule } from 'ngx-bootstrap';
 import { DynamicInputListComponent } from './dynamic-input-list/dynamic-input-list.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { DynamicInputListComponent } from './dynamic-input-list/dynamic-input-li
      HomeComponent,
      LoginComponent,
      WordsComponent,
-     DynamicInputListComponent
+     DynamicInputListComponent,
+     DataTableComponent
   ],
   imports: [
     BrowserModule,

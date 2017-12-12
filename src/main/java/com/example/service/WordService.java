@@ -1,6 +1,5 @@
 package com.example.service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,11 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.dto.CustomerDTO;
 import com.example.dto.WordDTO;
-import com.example.entity.User;
 import com.example.entity.Word;
 import com.example.repository.WordRepository;
 

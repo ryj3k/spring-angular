@@ -1,0 +1,59 @@
+<div class="panel-body">
+  <table class="table table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Słówko</th>
+        <th>Tłumaczenie</th>
+        <th></th>
+      </tr>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let word of tableData; let i = index">
+        <td>{{word.index}}</td>
+        <td>{{word.name}}</td>
+        <td>
+          <ul class="list-inline">
+            <li *ngFor="let tr of word.translations" let last=last>
+              {{tr.value}}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onDataEdit(word)">Edytuj</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="panel-footer" *ngIf="pagination">
+  <div class="row">
+    <div class="col col-xs-4">Page {{currentPage}} of {{totalPages.length}}
+    </div>
+    <div class="col col-xs-8" *ngIf="totalPages?.length <= 5">
+      <ul class="pagination hidden-xs pull-right"  *ngFor="let page of totalPages?.reverse(); let i = index">
+        <li class="page-item"><a class="page-link" href="#" target="" (click) = "changePage(currentPage - 1, $event)" *ngIf="i == totalPages?.length - 1">Previous</a></li>
+        <li [ngClass]="{'page-item': true, 'active': page == currentPage}"><a class="page-link" href="#" (click) = "changePage(page, $event)">{{page}}</a></li>
+        <li class="page-item"><a class="page-link" href="#" (click) = "changePage(currentPage + 1, $event)" *ngIf="i == 0">Next</a></li>
+      </ul>
+      <ul class="pagination visible-xs pull-right">
+        <li><a href="#" (click) = "changePage(currentPage - 1, $event)">«</a></li>
+        <li><a href="#" (click) = "changePage(currentPage + 1, $event)">»</a></li>
+    </ul>
+    </div>
+    <div class="col col-xs-8" *ngIf="totalPages?.length > 5">
+      <ul class="pagination hidden-xs pull-right">
+        <li [ngClass]="{'page-item': true, 'active': page == currentPage}"><a class="page-link" href="#" (click) = "changePage(1, $event)">First</a></li>
+        <li class="page-item"><a class="page-link" href="#" target="" (click) = "changePage(currentPage - 1, $event)">Previous</a></li>
+        <li [ngClass]="{'page-item': true, 'active': page == currentPage}"><a>{{currentPage}}</a></li>
+        <li class="page-item"><a class="page-link" href="#" (click) = "changePage(currentPage + 1, $event)" >Next</a></li>
+        <li [ngClass]="{'page-item': true, 'active': page == currentPage}"><a class="page-link" href="#" (click) = "changePage(totalPages?.length, $event)">Last</a></li>
+      </ul>
+      <ul class="pagination visible-xs pull-right">
+        <li><a href="#" (click) = "changePage(currentPage - 1, $event)">«</a></li>
+        <li><a href="#" (click) = "changePage(currentPage + 1, $event)">»</a></li>
+    </ul>
+    </div>
+  </div>
+</div>

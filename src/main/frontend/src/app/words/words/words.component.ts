@@ -1,8 +1,9 @@
+import { DataTableComponent } from './../../data-table/data-table.component';
 import { AlertService } from './../../services/alert.service';
 import { Response } from '@angular/http';
 import { Word } from './../../models/word';
 import { WordsService } from './../../services/words.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, EventEmitter} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -18,6 +19,9 @@ export class WordsComponent implements OnInit {
   @ViewChild('childModal')
   public childModal: ModalDirective;
 
+  @ViewChild('childTable')
+  public childTable: DataTableComponent;
+
   constructor(
     private wordsService: WordsService,
     private alertService: AlertService) { }
@@ -29,8 +33,15 @@ export class WordsComponent implements OnInit {
     });
   }
 
-  public showEditModal(word: Word): void {
-    this.editedWord =  JSON.parse(JSON.stringify(word))
+  onEdit(word: Word): void {
+    console.log(word);
+    if (word == null) {
+      this.editedWord =  new Word();
+      this.editedWord.translations = [];
+    }else {
+      this.editedWord =  JSON.parse(JSON.stringify(word));
+    }
+
     this.childModal.show();
   }
 
@@ -45,6 +56,7 @@ export class WordsComponent implements OnInit {
       this.alertService.success('Dodano slowo');
       this.wordsService.getAll().subscribe(words => {
       this.words = words;
+      this.childTable.onDataSave(this.words);
     });
     }, error => {
       this.alertService.error('Blad dodania slowa!');
