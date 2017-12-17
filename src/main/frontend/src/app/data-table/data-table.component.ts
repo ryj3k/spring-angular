@@ -11,7 +11,7 @@ export class DataTableComponent implements OnInit {
 
   @Input() data = [];
   @Input() pagination: Boolean = false;
-  @Input() rowsPerPage = 3;
+  @Input() rowsPerPage = 10;
   @Input() start = 0;
 
   @Output() onEdit = new EventEmitter<Word>();
@@ -19,16 +19,17 @@ export class DataTableComponent implements OnInit {
   private tableData: Word[];
   private totalPages = [];
   private currentPage = 1;
+  private sortBy = '';
+  private orderBy = 'asc';
 
   constructor() {
 
   }
 
+
   ngOnInit() {
     console.log('init', this.data.length);
-    this.data.map((value, index) => {
-      value.index = index + 1;
-    });
+    this.sort();
 
     let i = this.start.valueOf();
     this.tableData = new Array();
@@ -64,6 +65,40 @@ export class DataTableComponent implements OnInit {
     }
 
   }
+  public onSort(fieldName: string, event: Event) {
+    event.preventDefault();
+    this.sortBy = fieldName;
+    if (this.orderBy === 'desc') {
+      this.orderBy = 'asc';
+    }else {
+      this.orderBy = 'desc';
+    }
+    this.sort();
+    this.changePage(this.currentPage, event);
+  }
+
+  private sort() {
+    let order = 1;
+    if (this.orderBy === 'desc') {
+      order = -1;
+    }
+
+    if (this.sortBy !== null) {
+      this.data.sort((obj1, obj2) => {
+        if (obj1[this.sortBy] > obj2[this.sortBy]) {
+          return order;
+        }
+        if (obj2[this.sortBy] > obj1[this.sortBy]) {
+          return order * -1;
+        }
+        return 0;
+      });
+    }
+
+    this.data.map((value, index) => {
+      value.index = index + 1;
+    });
+  }
 
   public onDataSave(inputData) {
     this.data = inputData;
@@ -71,7 +106,6 @@ export class DataTableComponent implements OnInit {
   }
 
   onDataEdit(word: Word) {
-    console.log('Send emit');
     this.onEdit.emit(word);
   }
 
