@@ -20,8 +20,8 @@ export class DynamicInputListComponent implements OnInit {
     this.translations.splice(index, 1);
   }
 
-   public addTranslation() {
-    this.translations.push(Object.create({id: null, value: this.newTranslation}));
-    this.newTranslation = '';
+   public addTranslation(transltion: HTMLInputElement) {
+    this.translations.push({id: null, value: transltion.value});
+    transltion.value = null;
   }
 }

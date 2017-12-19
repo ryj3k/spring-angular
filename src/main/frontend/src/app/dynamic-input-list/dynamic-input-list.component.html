@@ -9,8 +9,8 @@
       </span>
     </div>
      <div class="entry input-group">
-      <input class="form-control" type="text" name="newTranslation" [(ngModel)]="newTranslation"/>
-      <span class="input-group-btn" (click)="addTranslation()">
+      <input #new class="form-control" type="text" name="newTranslation"/>
+      <span class="input-group-btn" (click)="addTranslation(new)">
                <button class="btn btn-success" type="button">
                <span class="glyphicon glyphicon-plus" ></span>
       </button>
