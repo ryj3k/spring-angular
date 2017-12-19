@@ -1,22 +1,23 @@
-import { Word } from './../models/word';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { DoCheck } from '@angular/core/src/metadata/lifecycle_hooks';
+import { DataModel } from 'app/data-table/data-model';
 
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
-export class DataTableComponent implements OnInit {
+export class DataTableComponent<T> implements OnInit {
 
   @Input() data = [];
   @Input() pagination: Boolean = false;
   @Input() rowsPerPage = 10;
   @Input() start = 0;
+  @Input() dataModel: DataModel[];
 
-  @Output() onEdit = new EventEmitter<Word>();
+  @Output() onEdit = new EventEmitter<T>();
 
-  private tableData: Word[];
+  private tableData: T[];
   private totalPages = [];
   private currentPage = 1;
   private sortBy = '';
@@ -28,9 +29,7 @@ export class DataTableComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log('init', this.data.length);
     this.sort();
-
     let i = this.start.valueOf();
     this.tableData = new Array();
     this.totalPages = [];
@@ -45,7 +44,6 @@ export class DataTableComponent implements OnInit {
       this.tableData.push(this.data[i]);
     }
 
-    console.log('init', this.totalPages);
   }
 
   public changePage(page: number, event: Event): void {
@@ -105,8 +103,12 @@ export class DataTableComponent implements OnInit {
     this.ngOnInit();
   }
 
-  onDataEdit(word: Word) {
-    this.onEdit.emit(word);
+  onDataEdit(data: T) {
+    this.onEdit.emit(data);
+  }
+
+  isArray(val: any) {
+    return Array.isArray(val);
   }
 
 

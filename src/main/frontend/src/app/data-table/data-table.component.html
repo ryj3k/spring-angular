@@ -3,30 +3,31 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Słówko
-          <a href="#" (click)="onSort('name',$event)">
-            <span *ngIf="sortBy !== 'name'" class="fa fa-fw fa-sort"></span>
-            <span *ngIf="sortBy === 'name'" [ngClass]="{'fa fa-fw': true, 'fa-sort-asc': orderBy === 'asc', 'fa-sort-desc': orderBy === 'desc'}"></span>
+        <th *ngFor="let model of dataModel">
+          {{model.collName}}
+          <a href="#" (click)="onSort(model.fieldName, $event)" *ngIf="model.sortable">
+            <span *ngIf="sortBy !== model.fieldName" class="fa fa-fw fa-sort"></span>
+            <span *ngIf="sortBy === model.fieldName" [ngClass]="{'fa fa-fw': true, 'fa-sort-asc': orderBy === 'asc', 'fa-sort-desc': orderBy === 'desc'}"></span>
           </a>
         </th>
-        <th>Tłumaczenie</th>
+
         <th></th>
       </tr>
 
     </thead>
     <tbody>
-      <tr *ngFor="let word of tableData; let i = index">
-        <td>{{word.index}}</td>
-        <td>{{word.name}}</td>
-        <td>
-          <ul class="list-inline">
-            <li *ngFor="let tr of word.translations" let last=last>
-              {{tr.value}}
-            </li>
-          </ul>
+      <tr *ngFor="let data of tableData; let i = index">
+        <td>{{data.index}}</td>
+        <td *ngFor="let model of dataModel">
+          {{isArray(data[model.fieldName]) ? "" : data[model.fieldName]}}
+          <ul class="list-inline" *ngIf="isArray(data[model.fieldName])">
+              <li *ngFor="let tr of data.translations" let last=last>
+                {{tr.value}}
+              </li>
+            </ul>
         </td>
         <td>
-          <button type="button" class="btn btn-sm btn-primary" (click)="onDataEdit(word)">Edytuj</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="onDataEdit(data)">Edytuj</button>
         </td>
       </tr>
     </tbody>

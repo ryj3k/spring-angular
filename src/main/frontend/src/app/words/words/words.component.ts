@@ -1,3 +1,4 @@
+import { DataModel } from './../../data-table/data-model';
 import { DataTableComponent } from './../../data-table/data-table.component';
 import { AlertService } from './../../services/alert.service';
 import { Response } from '@angular/http';
@@ -15,12 +16,13 @@ export class WordsComponent implements OnInit {
 
   public words: Word[];
   public editedWord: Word;
+  public dataTableModel: DataModel[];
 
   @ViewChild('childModal')
   public childModal: ModalDirective;
 
   @ViewChild('childTable')
-  public childTable: DataTableComponent;
+  public childTable: DataTableComponent<Word>;
 
   constructor(
     private wordsService: WordsService,
@@ -28,6 +30,7 @@ export class WordsComponent implements OnInit {
 
   ngOnInit() {
     this.editedWord = new Word();
+    this.dataTableModel = [new DataModel('Słówko', 'name', true), new DataModel('Tłumaczenie', 'translations', false)];
     this.wordsService.getAll().subscribe(words => {
       this.words = words;
     });

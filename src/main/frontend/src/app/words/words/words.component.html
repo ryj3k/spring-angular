@@ -5,7 +5,7 @@
       <a class="btn btn-default btn-sm" (click)="showEditModal(null)">+</a>
     </div>
   </div>
-  <app-data-table #childTable *ngIf = "words"  [data] = "words"  [pagination] = "true" (onEdit)="onEdit($event)">
+  <app-data-table #childTable *ngIf = "words"  [data] = "words"  [pagination] = "true" (onEdit)="onEdit($event)" [dataModel] = "dataTableModel">
 
   </app-data-table>
   <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
