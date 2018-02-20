@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { DoCheck } from '@angular/core/src/metadata/lifecycle_hooks';
 import { DataModel } from 'app/data-table/data-model';
 
 @Component({

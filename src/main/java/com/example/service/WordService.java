@@ -31,7 +31,11 @@ public class WordService {
 	
 	public List<WordDTO> getAll(){		
 		return wordRepository.getAllFull().stream().map(word -> convertToDto(word)).collect(Collectors.toList());
-	}	
+	}
+
+	public WordDTO findOne(Long id){
+		return convertToDto(wordRepository.findOne(id));
+	}
 	
 	public WordDTO convertToDto(Word word) {
 		if(word == null){

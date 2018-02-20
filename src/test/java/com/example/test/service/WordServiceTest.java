@@ -1,12 +1,15 @@
 package com.example.test.service;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,36 +25,37 @@ import com.example.entity.Translation;
 import com.example.entity.Word;
 import com.example.repository.CustomerRepository;
 import com.example.service.WordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Slf4j
 public class WordServiceTest {
-	@InjectMocks
-	WordService wordService = new WordService();
+
+	@Autowired
+	private WordService wordService;
 	
-	@Spy
-    private ModelMapper modelMapper = new ModelMapper();
-	
-	@Mock
-	private CustomerRepository customerRepository;
-	
-	//@Before
+	@Before
 	public void init(){
 		MockitoAnnotations.initMocks(WordServiceTest.class);
 	}
-	
+
+
 	@Test
 	public void covetrToEntityTest(){
-		WordDTO dto = new WordDTO();
-		dto.setName("Imie");		
-		
-		Word entity = wordService.convertToEntity(dto);
-		assertNotNull(entity);
-		assertTrue(entity.getName().equals("Imie"));
-		assertNotNull(entity.getTranslation());
-		entity.getTranslation().forEach(n -> {
-			System.out.println("Tlumacznie:" + n.getValue());
-		});
-		
+		WordDTO dto =  WordDTO.builder().build();
+		dto.setName("Imie");
+		dto.setTranslations(Collections.singleton(new Translation()));
+		dto = wordService.saveOrUpdateWord(dto);
+		WordDTO entity = wordService.findOne(dto.getId());
+		assertNotNull(dto);
+		assertNotNull(dto.getId());
+		assertTrue(dto.getName().equals("Imie"));
+		assertNotNull(entity.getTranslations());
+
 	}
 	
 	@Test

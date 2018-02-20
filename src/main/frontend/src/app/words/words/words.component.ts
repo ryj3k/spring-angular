@@ -54,14 +54,14 @@ export class WordsComponent implements OnInit {
   }
 
   public saveEditedWord() {
-    this.wordsService.saveOrUpdate(this.editedWord).subscribe((response: Response) => {
-      this.hideEditModal()
+    this.wordsService.saveOrUpdate(this.editedWord).subscribe(() => {
+      this.hideEditModal();
       this.alertService.success('Dodano slowo');
       this.wordsService.getAll().subscribe(words => {
       this.words = words;
       this.childTable.onDataSave(this.words);
     });
-    }, error => {
+    }, () => {
       this.alertService.error('Blad dodania slowa!');
     }) ;
   }

@@ -8,7 +8,6 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DynamicInputListComponent implements OnInit {
 
   @Input() translations: any[];
-  public newTranslation: string;
   constructor() { }
 
   ngOnInit() {

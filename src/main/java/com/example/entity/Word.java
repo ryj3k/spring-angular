@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import lombok.*;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+@Data
 @Entity
 @Table(name = "el_word")
 public class Word extends BaseEntity{
@@ -30,29 +33,5 @@ public class Word extends BaseEntity{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "group_id")
 	private Group group;
-	
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Language getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(Language language) {
-		this.language = language;
-	}
-
-	public Set<Translation> getTranslation() {
-		return translation;
-	}
-
-	public void setTranslation(Set<Translation> translation) {
-		this.translation = translation;
-	}
-	
 }
