@@ -51,7 +51,7 @@ public class CustomerService {
 		User customer = modelMapper.map(customerDTO, User.class);   
 	  
 	    if (customerDTO.getId() != null) {
-	    	User oldPost = customerRepository.findOne(customerDTO.getId());
+	    	User oldPost = customerRepository.getOne(customerDTO.getId());
 	       
 	    }
 	    return customer;

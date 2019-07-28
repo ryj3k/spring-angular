@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -30,7 +31,7 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 	private final Logger logger = LoggerFactory.getLogger(AjaxAuthenticationProvider.class);
 	
 	@Autowired
-    public AjaxAuthenticationProvider(final CustomerService userService, final BCryptPasswordEncoder encoder) {
+    public AjaxAuthenticationProvider(final CustomerService userService, @Qualifier("bCryptPasswordEncoder") final BCryptPasswordEncoder encoder) {
         this.userService = userService;
         this.encoder = encoder;
     }

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Service;
 import com.example.dto.WordDTO;
 import com.example.entity.Word;
 import com.example.repository.WordRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class WordService {
 
 	@Resource
@@ -34,7 +37,7 @@ public class WordService {
 	}
 
 	public WordDTO findOne(Long id){
-		return convertToDto(wordRepository.findOne(id));
+		return convertToDto(wordRepository.getOne(id));
 	}
 	
 	public WordDTO convertToDto(Word word) {
